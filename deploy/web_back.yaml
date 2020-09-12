@@ -1,0 +1,35 @@
+---
+# バックエンドAPIアプリの初期起動ポッド設定（リソース：Deployment）
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webback-dep
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webback
+  template:
+    metadata:
+      labels:
+        app: webback
+    spec:
+      containers:
+      - name: app
+        image: msrrepo1.azurecr.io/demowebapi:1.0
+        ports:
+        - containerPort: 8080
+---
+# バックエンドアプリのエンドポイント設定（リソース：Service）
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: webback_svc
+spec:
+  ports:
+    - name: "http"
+      protcol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: webback

@@ -1,0 +1,36 @@
+---
+# フロントアプリの初期起動ポッド設定（リソース：Deployment）
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webfront-dep
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webfront
+  template:
+    metadata:
+      labels:
+        app: webfront
+    spec:
+      containers:
+      - name: web
+        image: msrrepo1.azurecr.io/demofrontapp:1.0
+        ports:
+        - containerPort: 80
+---
+# フロントアプリのエンドポイント設定（リソース：Service）
+apiVersion: v1
+kind: Service
+metadata:
+  name: webfront-svc
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "http"
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: webfront
