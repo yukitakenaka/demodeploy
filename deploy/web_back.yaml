@@ -33,3 +33,21 @@ spec:
       targetPort: 8080
   selector:
     app: webback
+---
+# アプリケーションPodのオートスケール設定（リソース：HorizontalPodAutoscaler）
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: webback-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: webback-dep
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 50

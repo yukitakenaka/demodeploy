@@ -39,3 +39,21 @@ spec:
       targetPort: 443
   selector:
     app: webfront
+---
+# アプリケーションPodのオートスケール設定（リソース：HorizontalPodAutoscaler）
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: webfront-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: webfront-dep
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 50
