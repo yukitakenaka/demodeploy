@@ -16,9 +16,10 @@ spec:
     spec:
       containers:
       - name: web
-        image: msrrepo1.azurecr.io/demofrontapp:1.0
+        image: msrrepo1.azurecr.io/demofrontapp:1.1
         ports:
         - containerPort: 80
+        - containerPort: 443
 ---
 # フロントアプリのエンドポイント設定（リソース：Service）
 apiVersion: v1
@@ -32,5 +33,9 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 80
+    - name: "https"
+      protocol: TCP
+      port: 443
+      targetPort: 443
   selector:
     app: webfront
