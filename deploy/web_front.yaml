@@ -25,6 +25,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-dns-label-name: msrdemoapp
   name: webfront-svc
 spec:
   type: LoadBalancer

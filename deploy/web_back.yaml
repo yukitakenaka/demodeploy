@@ -24,6 +24,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-dns-label-name: msrdemoapi
   name: webback-svc
 spec:
   type: LoadBalancer
