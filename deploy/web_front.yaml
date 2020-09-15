@@ -25,8 +25,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    service.beta.kubernetes.io/azure-dns-label-name: webfront-svc
+#  annotations:
+#    service.beta.kubernetes.io/azure-dns-label-name: webfront-svc
   name: webfront-svc
 spec:
   type: LoadBalancer
@@ -41,6 +41,17 @@ spec:
       targetPort: 443
   selector:
     app: webfront
+---
+#　フロントアプリのDNS設定
+apiVersion: v1
+kind: Service
+metadata:
+  name: webfront-svc
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: msr.demo.webfront.com
+
 ---
 # アプリケーションPodのオートスケール設定（リソース：HorizontalPodAutoscaler）
 apiVersion: autoscaling/v2beta1
