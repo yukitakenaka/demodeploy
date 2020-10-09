@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: msrrepo1.azurecr.io/demofrontapp:1.4
+        image: msrrepo1.azurecr.io/demofrontapp:1.5
         ports:
         - containerPort: 80
         - containerPort: 443
